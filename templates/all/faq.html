@@ -1,0 +1,141 @@
+{% extends 'all/base.html' %}
+{% load static %}
+{% block content %}
+		<!-- header -->
+		<header class="header">
+			<div class="header__wrap">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="header__content">
+								<!-- header logo -->
+								<a href="{% url 'main' %}" class="header__logo">
+									<img src="{% static 'img/logo.svg' %}" alt="">
+								</a>
+								<!-- end header logo -->
+	
+								<!-- header nav -->
+								<ul class="header__nav">
+									<!-- dropdown -->
+									<li class="header__nav-item">
+										<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuHome">
+											<li><a href="{% url 'main' %}">Home</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+	
+									<!-- dropdown -->
+									<li class="header__nav-item">
+										<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
+											<li><a href="{% url 'movie-a' %}">All</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+	
+									<li class="header__nav-item">
+										<a href="{% url 'faq' %}" class="header__nav-link">Help</a>
+									</li>
+	
+									<!-- dropdown -->
+									<li class="dropdown header__nav-item">
+										<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+											<li><a href="{% url 'error' %}">404 Page</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+								</ul>
+								<!-- end header nav -->
+	
+								<!-- header auth -->
+								<div class="header__auth">
+									<button class="header__search-btn" type="button">
+									</button>
+									{% if request.user.is_authenticated %}
+										<h3 style="color: white;">hi,{{ request.user }}</h3>
+										<a href="{% url 'logout' %}" class="header__sign-in">
+											<i class="icon ion-ios-log-in"></i>
+											<span>log out</span>
+										</a>
+									{% else %}
+										<a href="{% url 'login' %}" class="header__sign-in">
+											<i class="icon ion-ios-log-in"></i>
+											<span>sign in</span>
+										</a>
+									{% endif %}
+								</div>
+								<!-- end header auth -->
+
+								<!-- end header auth -->
+	
+								<!-- header menu btn -->
+								<button class="header__btn" type="button">
+									<span></span>
+									<span></span>
+									<span></span>
+								</button>
+								<!-- end header menu btn -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- end header -->
+
+	<!-- page title -->
+	<section class="section section--first section--bg" data-bg="{% static 'img/section/section.jpg' %}">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section__wrap">
+						<!-- section title -->
+						<h2 class="section__title">FAQ</h2>
+						<!-- end section title -->
+
+						<!-- breadcrumb -->
+						<ul class="breadcrumb">
+							<li class="breadcrumb__item"><a href="{% url 'main' %}">Home</a></li>
+							<li class="breadcrumb__item breadcrumb__item--active">FAQ</li>
+						</ul>
+						<!-- end breadcrumb -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end page title -->
+
+	<!-- faq -->
+	<section class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-6">
+					{% for x in faqs %}
+						<div class="faq">
+							<h3 class="faq__title">{{ x.question }}</h3>
+							<p class="faq__text">{{ x.answer }}</p>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end faq -->
+<br>
+<br>
+	<!-- footer start -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<h3 style="text-align: center; color: white; ">&copy Create page Ezozbek</h3>
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+{% endblock content%}

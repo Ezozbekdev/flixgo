@@ -1,0 +1,208 @@
+{% extends 'all/base.html' %}
+{% load static %}
+{% block content %}
+		<!-- header -->
+		<header class="header">
+			<div class="header__wrap">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="header__content">
+								<!-- header logo -->
+								<a href="{% url 'main' %}" class="header__logo">
+									<img src="{% static 'img/logo.svg' %}" alt="">
+								</a>
+								<!-- end header logo -->
+	
+								<!-- header nav -->
+								<ul class="header__nav">
+									<!-- dropdown -->
+									<li class="header__nav-item">
+										<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuHome">
+											<li><a href="{% url 'main' %}">Home</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+	
+									<!-- dropdown -->
+									<li class="header__nav-item">
+										<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
+											<li><a href="{% url 'movie-a' %}">All</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+	
+									<li class="header__nav-item">
+										<a href="{% url 'faq' %}" class="header__nav-link">Help</a>
+									</li>
+	
+									<!-- dropdown -->
+									<li class="dropdown header__nav-item">
+										<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+	
+										<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+											<li><a href="{% url 'error' %}">404 Page</a></li>
+										</ul>
+									</li>
+									<!-- end dropdown -->
+								</ul>
+								<!-- end header nav -->
+	
+								<!-- header auth -->
+								<div class="header__auth">
+									<button class="header__search-btn" type="button">
+									</button>
+									{% if request.user.is_authenticated %}
+										<h3 style="color: white;">hi,{{ request.user }}</h3>
+										<a href="{% url 'logout' %}" class="header__sign-in">
+											<i class="icon ion-ios-log-in"></i>
+											<span>log out</span>
+										</a>
+									{% else %}
+										<a href="{% url 'login' %}" class="header__sign-in">
+											<i class="icon ion-ios-log-in"></i>
+											<span>sign in</span>
+										</a>
+									{% endif %}
+								</div>
+								<!-- end header auth -->
+	
+								<!-- header menu btn -->
+								<button class="header__btn" type="button">
+									<span></span>
+									<span></span>
+									<span></span>
+								</button>
+								<!-- end header menu btn -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+		<!-- end header -->
+
+	<!-- home -->
+	<section class="home">
+		<!-- home bg -->
+		<div class="owl-carousel home__bg">
+			<div class="item home__cover" data-bg="{% static 'img/home/home__bg.jpg' %}"></div>
+		</div>
+		<!-- end home bg -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h1 class="home__title"><b>NEW ITEMS</b> OF THIS SEASON</h1>
+					<button class="home__nav home__nav--next" type="button">
+						<a href="{% url 'movie-a' %}"><i class="icon ion-ios-arrow-round-forward"></i></a>
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end home -->
+
+	<!-- content -->
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">New items</h2>
+						<!-- end content title -->
+
+						<!-- content tabs nav -->
+						<ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">NEW RELEASES</a>
+							</li>
+						</ul>
+						<!-- end content tabs nav -->
+
+						<!-- content mobile tabs nav -->
+						<div class="content__mobile-tabs" id="content__mobile-tabs">
+							<div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<input type="button" value="New items">
+								<span></span>
+							</div>
+
+							<div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">NEW RELEASES</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- end content mobile tabs nav -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- content tabs -->
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+					<div class="row">
+						<!-- card -->
+						{% for x in movie %}
+							<!-- card -->
+							<div class="col-6 col-sm-12 col-lg-6">
+								<div class="card card--list">
+									<div class="row">
+										<div class="col-12 col-sm-4">
+											<div class="card__cover">
+												<img src="{{ x.img.url }}" alt="">
+												<a href="{% url 'detail' x.pk %}" class="card__play">
+													<i class="icon ion-ios-play"></i>
+												</a>
+											</div>
+										</div>
+
+										<div class="col-12 col-sm-8">
+											<div class="card__content">
+												<h3 class="card__title"><a href="#">{{ x.title }}</a></h3>
+												<div class="card__wrap">
+													<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+
+													<ul class="card__list">
+														<li>{{ x.hd }}</li>
+														<li>{{ x.age_limit }}</li>
+													</ul>
+												</div>
+
+												<div class="card__description">
+													<p>{{ x.dic }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end card -->
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+			<!-- end content tabs -->
+		</div>
+	</section>
+	<!-- end content -->
+
+	<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<h3 style="text-align: center; color: white; ">&copy Create page Ezozbek</h3>
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+{% endblock content %}

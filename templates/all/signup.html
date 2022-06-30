@@ -1,0 +1,42 @@
+{% extends 'all/base.html' %}
+{% load static %}
+{% block content %}
+	<div class="sign section--bg" data-bg="{% static 'img/section/section.jpg' %}">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sign__content">
+						<!-- registration form -->
+						<form class="sign__form" method="post">
+							{% csrf_token %}
+							<a href="{% url 'main' %}" class="sign__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
+							</a>
+
+							<div class="sign__group">
+								<input type="text" class="sign__input" name="username" placeholder="Username">
+							</div>
+
+							<div class="sign__group">
+								<input type="text" class="sign__input" name="email" placeholder="Email">
+							</div>
+
+							<div class="sign__group">
+								<input type="password" class="sign__input" name="password1" placeholder="Password">
+							</div>
+
+							<div class="sign__group">
+								<input type="password" class="sign__input" name="password2" placeholder="Confirm password">
+							</div>
+
+							<button class="sign__btn" type="submit" value="Register" >Sign up</button>
+
+							<span class="sign__text">Already have an account? <a href="{% url 'login' %}">Sign in!</a></span>
+						</form>
+						<!-- registration form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
